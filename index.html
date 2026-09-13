@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Interactivity</title>
+    <style>
+      :root {
+        --bg: #8fbc8f;
+        --text: #355e3b;
+        --card-bg: #f0fff0;
+        --border: #1a2421;
+      }
+
+      body.dark {
+          --bg: #1a1a1a;
+          --text: #f0f0f0;
+          --card-bg: #2b2b2b;
+          --border: #444;
+      }
+
+      body {
+          font-family: system-ui, sans-serif;
+          background: var(--bg);
+          color: var(--text);
+          padding: 40px 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 40px;
+      }
+
+      section {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 24px 32px;
+          width: 100%;
+          max-width: 500px;
+          text-align: center;
+      }
+
+      button {
+          background: #4a63e7;
+          color: #fff;
+          border: none;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-size: 1rem;
+          cursor: pointer;
+      }
+
+      button:hover {
+          background: #3a4fd0;
+          transform: translateY(-2px);
+      }
+
+      #themeToggle {
+          background: #333;
+      }
+
+      #themeToggle:hover {
+          background: #555;
+      }
+
+      .square-row {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+      }
+
+      .square {
+          width: 100px;
+          height: 100px;
+          border-radius: 10px;
+          background-color: red;
+      }
+        
+    </style>
+  </head>
+  <body>
+
+    <section>
+      <h2>Counter</h2>
+      <div id="count">0</div>
+      <div class="btn-row">
+        <button data-amount="1">+1</button>
+        <button data-amount="5">+5</button>
+        <button data-amount="10">+10</button>
+      </div>
+    </section>
+    
+    <section>
+      <h2>Theme</h2>
+      <button id="themeToggle">Toggle Dark / Light</button>
+    </section>
+
+    <section>
+      <h2>Hover Squares</h2>
+      <div class="square-row">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+      </div>
+    </section>
+
+    <script>
+
+  //counter buttons
+  let count = 0;
+  const countDisplay = document.getElementById('count');
+
+  document.querySelectorAll('.btn-row button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const amount = parseInt(btn.dataset.amount, 10);
+      count += amount;
+      countDisplay.textContent = count;
+    });
+  });
+
+  //tiggle dark/light theme
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
+
+  //hover over squares to change colour
+  const colors = ['red', 'yellow', 'blue'];
+
+  document.querySelectorAll('.square').forEach(square => {
+    //each square tracks its own current color index
+    let colorIndex = 0;
+
+    square.addEventListener('mouseenter', () => {
+      colorIndex = (colorIndex + 1) % colors.length;
+      square.style.backgroundColor = colors[colorIndex];
+    });
+  });
+</script>
+    
+  </body>
